@@ -3,70 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Park My Spot</title>
+    <title>Park My Spot - Parking Slot Manager</title>
     <link rel="stylesheet" href="slot.css">
-    <link rel="icon" type="image/png" href="Top_bar_logo.png" >
-
-    <script src="slot.js"></script>
+    <link rel="icon" type="image/png" href="Top_bar_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-
+    <script src="slot.js"></script>
 </head>
 <body onload="setupparkingmanager()">
-    <div class="head2">  
+    <nav class="head2" id="mainNavbar">  
+        <a href="index.php" class="brand-wrapper">
+            <img class="logo" src="project images/logo(1).jpeg" alt="Park My Spot Logo">
+            <img class="ln" src="project images/logo name.png" alt="Park My Spot">
+        </a>
+        <ul id="navMenu">
+            <li><a href="index.php" class="a">Home</a></li>
+            <li><a href="slot.html" class="a">Choose Slots</a></li>
+            <li><a href="entry.php" class="a">Vehicle Entry</a></li>
+            <li><a href="otp.php" class="a">Booking Details</a></li>
+            <li><a href="feedback.php" class="a">Rate Us</a></li>
+            <li class="si"><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>
 
-        <a href=""><img class="logo" src="project images/logo(1).jpeg"></a>
-        <a href=""><img class="ln"src="project images/logo name.png" alt=""></a>
-         <ul>
-             <li> <a href="index.php" class="a">Home<span></span></a></li>
-             <li> <a href="slot.html" class="a">Choose your slots<span></span></a></li>
-             <li><a href="entry.php" class="a">Vehicle entry<span></span></a></li>
-             <li><a href="otp.php" class="a">Booking details<span></span></a></li>
-             <li><a href="feedback.php" class="a">Rate Us<span></span></a></li>
-             <li class="si"><a href="logout.php">Logout</a></li>
-         </ul>
-         </div>
-     </div>
     <div class="navbar">
-        <div class="brand" style="   position: relative; top: 100px;">PARKING MANAGER</div>
+        <div class="brand">PARKING MANAGER</div>
     </div>
+
     <div class="dashboard">
-    <div class="parking-manager">
-        <div class="new-car-btn">Slot Management</div>
-        <div class="new-car-entry">
-            <div onclick="carenter(0)" id="slot1">1</div>
-            <div onclick="carenter(1)" id="slot2">2</div>
-            <div onclick="carenter(2)" id="slot3">3</div>
-            <div onclick="carenter(3)" id="slot4">4</div>
-            <div onclick="carenter(4)" id="slot5">5</div>
-            <div onclick="carenter(5)" id="slot6">6</div>
-            <div onclick="carenter(6)" id="slot7">7</div>
-            <div onclick="carenter(7)" id="slot8">8</div>
-            <div onclick="carenter(8)" id="slot9">9</div>
-            <div onclick="carenter(9)" id="slot10">10</div>
-            
+        <div class="parking-manager">
+            <div class="new-car-btn">Select Slot to Simulate Entry/Exit</div>
+            <div class="new-car-entry">
+                <div onclick="carenter(0)" id="slot1" title="Slot 1">1</div>
+                <div onclick="carenter(1)" id="slot2" title="Slot 2">2</div>
+                <div onclick="carenter(2)" id="slot3" title="Slot 3">3</div>
+                <div onclick="carenter(3)" id="slot4" title="Slot 4">4</div>
+                <div onclick="carenter(4)" id="slot5" title="Slot 5">5</div>
+                <div onclick="carenter(5)" id="slot6" title="Slot 6">6</div>
+                <div onclick="carenter(6)" id="slot7" title="Slot 7">7</div>
+                <div onclick="carenter(7)" id="slot8" title="Slot 8">8</div>
+                <div onclick="carenter(8)" id="slot9" title="Slot 9">9</div>
+                <div onclick="carenter(9)" id="slot10" title="Slot 10">10</div>
+            </div>
         </div>
-    </div>
-    <div class="parking-container" id="parkingspace">
-        <div class="parking-slots-holder">
-            <div class="parking-slot" id="slot-1">1</div>
-            <div class="parking-slot" id="slot-2">2</div>
-            <div class="parking-slot" id="slot-3">3</div>
-            <div class="parking-slot" id="slot-4">4</div>
-            <div class="parking-slot" id="slot-5">5</div>
-           
+
+        <div class="parking-container" id="parkingspace">
+            <div class="parking-slots-holder">
+                <div class="parking-slot" id="slot-1" onclick="carexit(0)">Slot 1</div>
+                <div class="parking-slot" id="slot-2" onclick="carexit(1)">Slot 2</div>
+                <div class="parking-slot" id="slot-3" onclick="carexit(2)">Slot 3</div>
+                <div class="parking-slot" id="slot-4" onclick="carexit(3)">Slot 4</div>
+                <div class="parking-slot" id="slot-5" onclick="carexit(4)">Slot 5</div>
+            </div>
+            <div class="parking-way" id="entry-way"></div>
+            <div class="parking-way"></div>
+            <div class="parking-slots-holder">
+                <div class="parking-slot" id="slot-6" onclick="carexit(5)">Slot 6</div>
+                <div class="parking-slot" id="slot-7" onclick="carexit(6)">Slot 7</div>
+                <div class="parking-slot" id="slot-8" onclick="carexit(7)">Slot 8</div>
+                <div class="parking-slot" id="slot-9" onclick="carexit(8)">Slot 9</div>
+                <div class="parking-slot" id="slot-10" onclick="carexit(9)">Slot 10</div>
+            </div>
         </div>
-        <div class="parking-way" id="entry-way"></div>
-        <div class="parking-way"></div>
-        <div class="parking-slots-holder">
-            <div class="parking-slot" id="slot-6">6</div>
-            <div class="parking-slot" id="slot-7">7</div>
-            <div class="parking-slot" id="slot-8">8</div>
-            <div class="parking-slot" id="slot-9">9</div>
-            <div class="parking-slot" id="slot-10">10</div>
-           
-        </div>
-    </div>
-    <div class="outside">ENTRY/EXIT</div>
+
+        <div class="outside">ENTRY / EXIT</div>
     </div>
 </body>
 </html>

@@ -1,176 +1,202 @@
-<?php
-session_start();
-if (!isset($_SESSION["user"])) {
-   header("Location: login.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Park My Spot</title>
+    <title>Park My Spot - User Dashboard</title>
     <link rel="stylesheet" href="home.css">
-    <link rel="icon" type="image/png" href="Top_bar_logo.png" >
+    <link rel="icon" type="image/png" href="Top_bar_logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet"href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 0 24px;
+        }
+        .dash-card {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 28px 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+        .dash-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        .dash-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(243, 62, 22, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 16px;
+        }
+        .dash-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+        .dash-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-    
-
-<div class="head1">
-        <video class="vd" loop  muted autoplay="autoplay">
+    <header class="head1" style="min-height: 480px;">
+        <video class="vd" loop muted playsinline poster="project images/home4.jpg" preload="none" id="heroVideo">
             <source src="project images/home.mp4" type="video/mp4">
-         </video>
+        </video>
    
-     <div class="main">
-      <div class="head2">  
+        <div class="main">
+            <nav class="head2" id="mainNavbar">  
+                <a href="index.php" class="brand-wrapper">
+                    <img class="logo" src="project images/logo(1).jpeg" alt="Park My Spot Logo">
+                    <img class="ln" src="project images/logo name.png" alt="Park My Spot">
+                </a>
+                <ul id="navMenu">
+                    <li><a href="index.php" class="a">Dashboard</a></li>
+                    <li><a href="slot.html" class="a">Choose Slots</a></li>
+                    <li><a href="entry.php" class="a">Vehicle Entry</a></li>
+                    <li><a href="otp.php" class="a">Booking Details</a></li>
+                    <li><a href="feedback.php" class="a">Rate Us</a></li>
+                    <li class="si"><a href="logout.php"><i class='bx bx-log-out'></i> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
 
-       <a href=""><img class="logo" src="project images/logo(1).jpeg"></a>
-       <a href=""><img class="ln"src="project images/logo name.png" alt=""></a>
-        <ul>
-            <li> <a href="home.html" class="a">Home<span></span></a></li>
-            <li> <a href="slot.html" class="a">Choose your slots<span></span></a></li>
+        <div class="hero-content" style="padding-top: 50px;">
+            <div class="hero-badge">
+                <i class='bx bx-check-shield'></i> Authenticated Session
+            </div>
+            <h1 class="hero-title">Welcome to Your <span>Parking Portal</span></h1>
+            <p class="hero-subtitle">
+                Quickly book a spot, check live bay occupancy, or look up your booking confirmation.
+            </p>
+            <div class="hero-actions">
+                <a href="entry.php" class="btn-hero-primary">
+                    <i class='bx bxs-plus-circle'></i> Book New Vehicle Entry
+                </a>
+                <a href="slot.html" class="btn-hero-secondary">
+                    <i class='bx bx-grid-alt'></i> Live 56-Slot Diagram
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard-grid">
+            <a href="entry.php" class="dash-card">
+                <div class="dash-icon"><i class='bx bxs-car'></i></div>
+                <h3>Vehicle Entry</h3>
+                <p>Register an incoming vehicle and assign an available parking spot.</p>
+            </a>
+            <a href="slot.html" class="dash-card">
+                <div class="dash-icon"><i class='bx bx-grid-alt'></i></div>
+                <h3>Slot Visualizer</h3>
+                <p>Interactive 56-slot parking map with real-time occupancy indicators.</p>
+            </a>
+            <a href="otp.php" class="dash-card">
+                <div class="dash-icon"><i class='bx bx-receipt'></i></div>
+                <h3>Booking Verification</h3>
+                <p>Look up confirmation receipts and print official parking tickets.</p>
+            </a>
+            <a href="feedback.php" class="dash-card">
+                <div class="dash-icon"><i class='bx bxs-star'></i></div>
+                <h3>Rate Experience</h3>
+                <p>Submit your reviews and help us improve parking management.</p>
+            </a>
+        </section>
+
+        <section id="about" class="about" style="margin-top: 40px;">
+            <h2 class="heading">System Overview</h2>
             
-            <li><a href="entry.php" class="a">Vehicle entry<span></span></a></li>
-            <li><a href="otp.php" class="a">Booking details<span></span></a></li>
-            <li><a href="feedback.php" class="a">Rate Us<span></span></a></li>
+            <article class="feature-card">
+                <div class="card-image">
+                    <img src="parking3.jpg" alt="Parking Services" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h2><i class='bx bx-check-shield'></i> Real-Time Slot Protection</h2>
+                    <p>
+                        Every slot is linked to our cloud database. Once reserved, slots are locked in real-time to avoid double-booking.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Instant slot occupancy status</li>
+                        <li>Automated hourly parking fee calculation ($5/hour)</li>
+                        <li>Official printable confirmation tickets</li>
+                        <li>Safe and encrypted cloud storage</li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+    </main>
 
-            <li class="si"><a href="logout.php">Logout</a></li>
-        </ul>
+    <footer class="footer">
+        <div class="footer-content">
+            <img class="logo2" src="project images/logo(1).jpeg" alt="Park My Spot Logo">
+            <img class="logoname1" src="project images/logo name1.png" alt="Park My Spot">
+            <div class="cu">
+                <h2>Contact Us</h2>
+                <p>WhatsApp: +91 93634 53411</p>
+                <p>Call Us: 2300 390 1772</p>
+                <p>Email: <a href="mailto:parkmyspot@gmail.com">parkmyspot@gmail.com</a></p>
+            </div>
+            <div class="icon-1">
+                <a href="#" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+                <a href="#" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="#" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+            </div>
+            <p style="margin-top: 15px; font-size: 13px; color: #64748b;">
+                &copy; 2026 Park My Spot. All rights reserved.
+            </p>
         </div>
-    </div>
-    </div>
-
-
-    <section id="about" class="about container">
-
-<h1 class="heading">About us</h1>
-
-<div class="row align-items-center">
-
-  <div class="col-md-6 image">
-    <img src="parking3.jpg"width="700px"   alt="">
-  </div>
-
-  <div class="col-md-6 info">
-    <h2>Features:</h2>
-    <p> 1.	24/7 video surveillance<br>
-        2.	Reserve and secure your parking spot ahead of tie to avoid <br>last-minute stress<br>
-        3.	Pay for parking effortlessly with contact less payment options<br>
-        4.	24/7 customer support<br>
-        5.	Instantly check for available parking spaces in your desired location<br>
-        </p>
-    
-  </div>
-
-</div>
-
-<div class="row align-items-center">
-
-  
-
-  <div class="col-md-6 info1">
-    <h2>Why choose us?</h2>
-    <p> Comfortable parking experience.Brokerage free.Genuine owners.<br>
-      Ensured security of your vechicle.Available for residents and visitors.<br>
-      Survellience parking.Available on app and website.<br>
-      
-        </p>
-        <div class="col-md-6 image1">
-          <img src="parking2.jpg"   alt="">
-        </div>
-  </div>
-
-</div>
-
-
-<div class="row align-items-center">
-
-  <div class="col-md-6 image2">
-    <img src="parking4.jpg"width="700px"   alt="">
-  </div>
-
-  <div class="col-md-6 info2">
-    <h2>About:</h2>
-    <p> This website is created to help customers to book a parking space online.<br>It also allows the customers to view the parking slots for the vehicle.
         
-      <br>
-        </p>
-    
-  </div>
-
-</div>
-
-</section>
-
-<!----------------------------Footer------------------------------------->
-<footer class="footer">
-    <div class="footer-content">
-     <img  class="logo2" src="project images/logo(1).jpeg">
-     <img class="logoname1" src="project images/logo name1.png" alt="">
-     <div class="cu"><h2>Contact Us</h2>
-      WhatsApp us: 9363453411<br>
-      Call us: 2300 390 1772<br>
-      <p>Email ID: <a href="#"> parkmyspot@gmail.com</a></p>
-      </div>
-     <div class="icon-1">
-     <a href="#"><i class='bx bxl-facebook-circle' ></i></a>
-     <a href="#"><i class='bx bxl-twitter' ></i></a>
-     <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
-     <a href="#"><i class='bx bxl-youtube' ></i></a>  <br>
-
-     <p> © Copyright  2024 Park my spot - All rights reserved. </p>
-    
-   
-     
-    
-     </div>
-     </div>
-    
-    
-    <div class="footer-content">
-      <h4 >All Categories</h4>
-      <a href="#" > <li>Parking Near Me</li></a>
-     <a href="#"> <li>Browse All Cities</li></a>
-      <a href="#"> <li>Parking Solutions</li></a>
-     <a href="#"> <li>News</li></a>
-     <a href="#"> <li>Policies</li></a>
-     <a href="#"> <li>Terms</li></a>
-      
-     
-    
-    
-    </div>
-    
-    <div class="footer-content">
-      <a href="#"><h4 >Help</h4></a>
-      <a href="#"><li>Payments</li></a>
-      <a href="#"><li>Cancellation</li></a>
-       <a href="#"><li>FAQ</li></a>
-       <a href="#"><li>Report</li></a>
-    </div>
-    
-    <div class="footer-content">
-      <a href="#"> <h4 >Resources</h4></a>
-      <a href="#">  <li>Sitemap</li></a>
-     <a href="#"> <li>Privacy Policy</li></a>
-     <a href="#"> <li>Terms Of Service</li></a>
-      <a href="#"> <li>Consumer Privacy</li></a>
-    <a href="#"> <li>Update</li></a>
-    
-    </div>
-    
-  </footer>
-  <script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-    
-</body>
-</html>
-
-    
+        <div class="footer-content">
+            <h4>Quick Actions</h4>
+            <ul>
+                <li><a href="entry.php">Book Vehicle Entry</a></li>
+                <li><a href="slot.html">56-Slot Visualizer</a></li>
+                <li><a href="otp.php">Ticket Verification</a></li>
+                <li><a href="feedback.php">Rate Us</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-content">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="contactus.php">Customer Helpdesk</a></li>
+                <li><a href="contactus.php">Report Incident</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-content">
+            <h4>Session</h4>
+            <ul>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

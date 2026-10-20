@@ -16,14 +16,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser(SESSION_SECRET));
 
-// Static files: Serve CSS, JS, images, videos (excluding .php files so they execute as handlers)
+// Static files: Serve CSS, JS, images, videos with caching headers (excluding .php files so they execute as handlers)
+const staticOptions = {
+  maxAge: '7d',
+  etag: true,
+  lastModified: true
+};
+
 app.use((req, res, next) => {
   if (req.path.endsWith('.php')) {
     return next();
   }
-  express.static(path.join(__dirname, '..', 'vehicle-parking'))(req, res, (err) => {
+  express.static(path.join(__dirname, '..', 'vehicle-parking'), staticOptions)(req, res, (err) => {
     if (err) return next(err);
-    express.static(path.join(__dirname, '..'))(req, res, next);
+    express.static(path.join(__dirname, '..'), staticOptions)(req, res, next);
   });
 });
 
@@ -131,11 +137,13 @@ function renderLoginPage(errorMessage = '', emailVal = '') {
   <body>
     <div class="head1">
       <div class="head2">  
-        <a href="home.html"><img class="logo" src="logo(1).jpeg" alt="Logo"></a>
-        <a href="home.html"><img class="ln" src="logo name.png" alt="Park My Spot"></a>
+        <a href="/" class="brand-wrapper">
+          <img class="logo" src="logo(1).jpeg" alt="Logo">
+          <img class="ln" src="logo name.png" alt="Park My Spot">
+        </a>
         <ul>
-          <li><a href="home.html" class="a">Home<span></span></a></li>
-          <li><a href="contactus.php" class="a">Contact Us<span></span></a></li>
+          <li><a href="/" class="a">Home</a></li>
+          <li><a href="contactus.php" class="a">Contact Us</a></li>
           <li class="si"><a href="login.php">Sign in</a></li>
         </ul>
       </div>
@@ -265,11 +273,13 @@ function renderRegisterPage(errors = [], successMsg = '', formData = {}) {
   <body>
     <div class="head1">
       <div class="head2">  
-        <a href="home.html"><img class="logo" src="logo(1).jpeg" alt="Logo"></a>
-        <a href="home.html"><img class="ln" src="logo name.png" alt="Park My Spot"></a>
+        <a href="/" class="brand-wrapper">
+          <img class="logo" src="logo(1).jpeg" alt="Logo">
+          <img class="ln" src="logo name.png" alt="Park My Spot">
+        </a>
         <ul>
-          <li><a href="home.html" class="a">Home<span></span></a></li>
-          <li><a href="contactus.php" class="a">Contact Us<span></span></a></li>
+          <li><a href="/" class="a">Home</a></li>
+          <li><a href="contactus.php" class="a">Contact Us</a></li>
           <li class="si"><a href="login.php">Sign in</a></li>
         </ul>
       </div>
@@ -416,14 +426,16 @@ function renderEntryPage(occupiedJson = '[]', alertHtml = '') {
   <body>
     <div class="head1">
       <div class="head2">  
-        <a href="index.php"><img class="logo" src="images/logo(1).jpeg" alt="Logo"></a>
-        <a href="index.php"><img class="ln" src="images/logo name.png" alt="Park My Spot"></a>
+        <a href="index.php" class="brand-wrapper">
+          <img class="logo" src="images/logo(1).jpeg" alt="Logo">
+          <img class="ln" src="images/logo name.png" alt="Park My Spot">
+        </a>
         <ul>
-          <li><a href="index.php" class="a">Home<span></span></a></li>
-          <li><a href="slot.html" class="a">Choose your slots<span></span></a></li>
-          <li><a href="entry.php" class="a">Vehicle entry<span></span></a></li>
-          <li><a href="otp.php" class="a">Booking details<span></span></a></li>
-          <li><a href="feedback.php" class="a">Rate Us<span></span></a></li>
+          <li><a href="index.php" class="a">Home</a></li>
+          <li><a href="slot.html" class="a">Choose Slots</a></li>
+          <li><a href="entry.php" class="a">Vehicle Entry</a></li>
+          <li><a href="otp.php" class="a">Booking Details</a></li>
+          <li><a href="feedback.php" class="a">Rate Us</a></li>
           <li class="si"><a href="logout.php">Logout</a></li>
         </ul>
       </div>
@@ -690,14 +702,16 @@ app.get(['/otp.php', '/vehicle-parking/otp.php'], requireAuth, (req, res) => {
 <body>
   <div class="head1">
     <div class="head2">  
-      <a href="index.php"><img class="logo" src="logo(1).jpeg" alt="Logo"></a>
-      <a href="index.php"><img class="ln" src="logo name.png" alt="Park My Spot"></a>
+      <a href="index.php" class="brand-wrapper">
+        <img class="logo" src="logo(1).jpeg" alt="Logo">
+        <img class="ln" src="logo name.png" alt="Park My Spot">
+      </a>
       <ul>
-        <li><a href="index.php" class="a">Home<span></span></a></li>
-        <li><a href="slot.html" class="a">Choose your slots<span></span></a></li>
-        <li><a href="entry.php" class="a">Vehicle entry<span></span></a></li>
-        <li><a href="otp.php" class="a">Booking details<span></span></a></li>
-        <li><a href="feedback.php" class="a">Rate us<span></span></a></li>
+        <li><a href="index.php" class="a">Home</a></li>
+        <li><a href="slot.html" class="a">Choose Slots</a></li>
+        <li><a href="entry.php" class="a">Vehicle Entry</a></li>
+        <li><a href="otp.php" class="a">Booking Details</a></li>
+        <li><a href="feedback.php" class="a">Rate Us</a></li>
         <li class="si"><a href="logout.php">Logout</a></li>
       </ul>
     </div>
@@ -831,15 +845,15 @@ async function handleBookingView(req, res) {
 <body>
   <div class="head1">
     <div class="head2">  
-      <div>
-        <a href="index.php"><img class="logo" src="images/logo(1).jpeg" alt="Logo"></a>
-        <a href="index.php"><img class="ln" src="images/logo name.png" alt="Park My Spot"></a>
-      </div>
+      <a href="index.php" class="brand-wrapper">
+        <img class="logo" src="images/logo(1).jpeg" alt="Logo">
+        <img class="ln" src="images/logo name.png" alt="Park My Spot">
+      </a>
       <ul>
         <li><a href="index.php" class="a">Home</a></li>
-        <li><a href="slot.html" class="a">Choose your slots</a></li>
-        <li><a href="entry.php" class="a">Vehicle entry</a></li>
-        <li><a href="otp.php" class="a">Booking details</a></li>
+        <li><a href="slot.html" class="a">Choose Slots</a></li>
+        <li><a href="entry.php" class="a">Vehicle Entry</a></li>
+        <li><a href="otp.php" class="a">Booking Details</a></li>
         <li><a href="feedback.php" class="a">Rate Us</a></li>
         <li class="si"><a href="logout.php">Logout</a></li>
       </ul>
@@ -863,7 +877,65 @@ app.all(['/booking.php', '/vehicle-parking/booking.php'], requireAuth, handleBoo
 // Route: Feedback (/feedback.php & /feedbackconnection.php)
 // -------------------------------------------------------------
 app.get(['/feedback.php', '/vehicle-parking/feedback.php'], (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'vehicle-parking', 'feedback.php'));
+  const user = getAuthUser(req);
+  const homeHref = user ? 'index.php' : '/';
+  const authLi = user 
+    ? '<li class="si"><a href="logout.php"><i class="bx bx-log-out"></i> Logout</a></li>' 
+    : '<li class="si"><a href="login.php"><i class="bx bx-user"></i> Sign in</a></li>';
+
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="Top_bar_logo.png">
+  <title>Park My Spot - Rate Us</title>
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="feedback.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="head1">
+    <div class="head2">  
+      <a href="${homeHref}" class="brand-wrapper">
+        <img class="logo" src="logo(1).jpeg" alt="Logo">
+        <img class="ln" src="logo name.png" alt="Park My Spot">
+      </a>
+      <ul>
+        <li><a href="${homeHref}" class="a">Home</a></li>
+        <li><a href="slot.html" class="a">Choose Slots</a></li>
+        <li><a href="entry.php" class="a">Vehicle Entry</a></li>
+        <li><a href="otp.php" class="a">Booking Details</a></li>
+        <li><a href="feedback.php" class="a">Rate Us</a></li>
+        ${authLi}
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h1>Feedback</h1>
+    <h3>Please share your ratings & experience with us!</h3>
+    <form action="feedbackconnection.php" method="post">
+      <div class="rating">
+        <input type="number" name="rating" id="ratingInput" value="5" hidden>
+        <i class='bx bx-star star' style="--i: 0;"></i>
+        <i class='bx bx-star star' style="--i: 1;"></i>
+        <i class='bx bx-star star' style="--i: 2;"></i>
+        <i class='bx bx-star star' style="--i: 3;"></i>
+        <i class='bx bx-star star' style="--i: 4;"></i>
+      </div>
+      <textarea name="opinion" cols="30" rows="5" placeholder="Your opinion..." required></textarea>
+      <div class="btn-group">
+        <button type="submit" name="submit" class="btn submit">Submit Review</button>
+        <button type="reset" class="btn cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="feedback.js"></script>
+</body>
+</html>`);
 });
 
 app.post(['/feedbackconnection.php', '/vehicle-parking/feedbackconnection.php'], async (req, res) => {
@@ -902,6 +974,134 @@ app.post(['/contactusconnection.php', '/vehicle-parking/contactusconnection.php'
     console.error('[Contact Error]', err);
     res.send("<script>alert('Unable to send message. Please try again.'); window.location.href = 'contactus.php';</script>");
   }
+});
+
+// -------------------------------------------------------------
+// Route: Outgoing Vehicle Details (/outgoing-detail.php)
+// -------------------------------------------------------------
+app.get(['/outgoing-detail.php', '/vehicle-parking/outgoing-detail.php'], requireAuth, async (req, res) => {
+  const updateId = parseInt(req.query.updateid, 10) || 0;
+  let vehicle = null;
+  if (updateId > 0) {
+    try {
+      const rows = await db.query('SELECT * FROM vehicle_info WHERE ID = ? LIMIT 1', [updateId]);
+      if (rows && rows.length > 0) vehicle = rows[0];
+    } catch (e) {
+      console.error('[Outgoing Detail Fetch Error]', e);
+    }
+  }
+
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Park My Spot - Manage Outgoing Vehicle</title>
+  <link rel="icon" type="image/png" href="Top_bar_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+  <style>
+    * { font-family: "Poppins", sans-serif; }
+    body { background: #f4f6f9; min-height: 100vh; padding: 20px; }
+    .card { border-radius: 16px; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin: 30px auto; max-width: 750px; }
+    .card-header { background: #ed5e2b; color: white; border-radius: 16px 16px 0 0 !important; font-weight: 600; font-size: 18px; padding: 15px 25px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { font-weight: 500; font-size: 14px; margin-bottom: 5px; }
+    .btn-submit { background: #ed5e2b; color: white; border: none; padding: 10px 25px; border-radius: 8px; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Vehicle Exit & Billing Management</span>
+      <a href="index.php" class="btn btn-sm btn-light">Back Home</a>
+    </div>
+    <div class="card-body p-4">
+      ${vehicle ? `
+        <form method="POST" action="outgoing-detail.php">
+          <input type="hidden" name="updateid" value="${vehicle.ID}">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Vehicle Registration Number</label>
+              <input type="text" class="form-control" value="${vehicle.RegistrationNumber || 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Company / Model</label>
+              <input type="text" class="form-control" value="${vehicle.VehicleCompanyname || 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Vehicle Category</label>
+              <input type="text" class="form-control" value="${vehicle.VehicleCategory || 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Parking Verification Number</label>
+              <input type="text" class="form-control" value="${vehicle.ParkingNumber || 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Vehicle IN Time</label>
+              <input type="text" class="form-control" value="${vehicle.InTime ? new Date(vehicle.InTime).toLocaleString() : 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Vehicle OUT Time</label>
+              <input type="text" class="form-control" value="${vehicle.OutTime ? new Date(vehicle.OutTime).toLocaleString() : 'Active In Parking'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Owner Name</label>
+              <input type="text" class="form-control" value="${vehicle.OwnerName || 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Owner Contact Number</label>
+              <input type="text" class="form-control" value="${vehicle.OwnerContactNumber || 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Assigned Slot</label>
+              <input type="text" class="form-control" value="${vehicle.slot_number || 'N/A'}" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Total Charge ($)</label>
+              <input type="number" step="0.01" class="form-control" name="parkingcharge" value="${vehicle.ParkingCharge || '0.00'}">
+            </div>
+            <div class="col-md-12 form-group">
+              <label>Status</label>
+              <select name="status" class="form-select">
+                <option value="In" ${vehicle.Status !== 'Out' ? 'selected' : ''}>In (Active)</option>
+                <option value="Out" ${vehicle.Status === 'Out' ? 'selected' : ''}>Out (Completed)</option>
+              </select>
+            </div>
+            <div class="col-md-12 form-group">
+              <label>Remarks</label>
+              <textarea class="form-control" name="remark" rows="3">${vehicle.Remark || ''}</textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit mt-3">Update Vehicle Record</button>
+        </form>
+      ` : `
+        <p class="text-muted">No vehicle selected or invalid update ID. <a href="index.php">Return to home</a>.</p>
+      `}
+    </div>
+  </div>
+</body>
+</html>`);
+});
+
+app.post(['/outgoing-detail.php', '/vehicle-parking/outgoing-detail.php'], requireAuth, async (req, res) => {
+  const updateId = parseInt(req.body.updateid || req.query.updateid, 10) || 0;
+  const remark = (req.body.remark || '').trim();
+  const status = (req.body.status || 'Out').trim();
+  const charge = (req.body.parkingcharge || '0').trim();
+
+  if (updateId > 0) {
+    try {
+      await db.query(
+        "UPDATE vehicle_info SET Remark = ?, Status = ?, ParkingCharge = ?, OutTime = CURRENT_TIMESTAMP WHERE ID = ?",
+        [remark, status, charge, updateId]
+      );
+    } catch (err) {
+      console.error('[Outgoing Update Error]', err);
+    }
+  }
+  res.redirect('/index.php');
 });
 
 // -------------------------------------------------------------
