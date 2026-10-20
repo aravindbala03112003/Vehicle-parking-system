@@ -4,12 +4,29 @@ const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 async function runMigration() {
-  const host = process.env.DB_HOST || 'localhost';
-  const port = parseInt(process.env.DB_PORT || '3306', 10);
-  const user = process.env.DB_USER || 'root';
-  const password = process.env.DB_PASSWORD || '';
-  const database = process.env.DB_NAME || 'vehicle_parking_db';
-  const ssl = process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined;
+  let host = process.env.DB_HOST || 'localhost';
+  let port = parseInt(process.env.DB_PORT || '3306', 10);
+  let user = process.env.DB_USER || 'root';
+  let password = process.env.DB_PASSWORD || '';
+  let database = process.env.DB_NAME || 'vehicle_parking_db';
+  let ssl = process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined;
+
+  const connString = process.env.DATABASE_URL || process.env.MYSQL_URL;
+  if (connString) {
+    try {
+      const parsed = new URL(connString);
+      host = parsed.hostname;
+      port = parseInt(parsed.port || '3306', 10);
+      user = decodeURIComponent(parsed.username || 'root');
+      password = decodeURIComponent(parsed.password || '');
+      database = (parsed.pathname || '').replace(/^\//, '') || database;
+      if (parsed.hostname !== 'localhost' && parsed.hostname !== '127.0.0.1') {
+        ssl = { rejectUnauthorized: false };
+      }
+    } catch (e) {
+      console.warn(`[Migration Warning] Could not parse connection URL: ${e.message}`);
+    }
+  }
 
   console.log(`[Migration] Connecting to MySQL server at ${host}:${port}...`);
 
