@@ -1,163 +1,325 @@
-.booking-slot {
-  width: 100px;
-  height: 100px;
-  background-color: green;
-  margin: 10px;
-  display: inline-block;
-  cursor: pointer;
+/* ==========================================================================
+   Park My Spot - Slot Selection Modal & Booking Stylesheet
+   ========================================================================== */
+
+/* -------------------------------------------------------------
+   Modal Dialog Layout & Responsiveness
+   Screenshot 2 reference
+   ------------------------------------------------------------- */
+.modal {
+    z-index: 1055;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    overscroll-behavior: contain;
 }
 
-.red {
-  background-color: red;
+.modal.fade .modal-dialog {
+    transition: transform 0.25s ease-out;
 }
 
- 
-  .error{
-      font-size: 15px;
-      color: red;
-  }
+.modal-dialog {
+    max-width: 680px;
+    width: 95%;
+    margin: 1.75rem auto;
+}
 
+.modal-content {
+    background: #ffffff;
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 
-  /* styles for Booking.php Forms nd all */
-  #seatsDiagram td,
-  #displaySeats td{
-      padding: 1rem;
-      text-align: center;
-      margin: 0.3rem;
-      width: 60px;
-      border: 3px solid transparent;
-      display: inline-block;
-      background-color: #efefef;
-      border-radius: 5px;
-  }
+/* Modal Header */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #ffffff;
+}
 
-  #displaySeats{
-      margin: 3rem auto 1rem auto;
-  }
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    line-height: 1.3;
+}
 
+.btn-close {
+    background-color: transparent;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
 
-  #seatsDiagram{
-      width: 100%;
-      margin-bottom: 1rem;
-  }
+.btn-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
 
-  .booking-slot   td.selected{
-      background-color: #db2619;
-     
-        animation-name: rubberBand;
-      animation-duration: 300ms;
-      animation-fill-mode: both;
-  }
+.btn-close:focus-visible {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+}
 
-  #seatsDiagram td.notAvailable,
-  #displaySeats td.notAvailable
-  {
-      color: white;
-      background-color: #db2619;
-  }
+/* Modal Body */
+.modal-body {
+    padding: 16px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    flex: 1 1 auto;
+}
 
-  #seatsDiagram td:not(.space,.notAvailable):hover{
-      cursor: pointer;
-      border-color:rgb(197, 56, 17);
-  }
+/* Modal Legend */
+.modal-legend {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #475569;
+    font-weight: 500;
+    flex-wrap: wrap;
+    background: #f8fafc;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
 
-  #seatsDiagram .space,
-  #displaySeats .space{
-      background-color: white;
-      border: none;
-  }
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
 
-  #routeSugg{
-      display: flex;
-      justify-content: space-between;
-  }
-  
-  #seatsDiagram .space,
-  #displaySeats .space{
-      background-color: white;
-      border: none;
-  }
+.legend-box {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
 
-  #routeSugg{
-      display: flex;
-      justify-content: space-between;
-  }
-  
-  @-webkit-keyframes rubberBand {
-      0% {
-          -webkit-transform: scale3d(1, 1, 1);
-                  transform: scale3d(1, 1, 1);
-      }
+.legend-box.selected {
+    background-color: #28a745;
+}
 
-      30% {
-          -webkit-transform: scale3d(1.25, 0.75, 1);
-                  transform: scale3d(1.25, 0.75, 1);
-      }
+.legend-box.occupied {
+    background-color: #dc3545;
+}
 
-      40% {
-          -webkit-transform: scale3d(0.75, 1.25, 1);
-                  transform: scale3d(0.75, 1.25, 1);
-      }
+.legend-box.available {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+}
 
-      50% {
-          -webkit-transform: scale3d(1.15, 0.85, 1);
-                  transform: scale3d(1.15, 0.85, 1);
-      }
+/* Slots Table Scrollable Wrapper */
+.slots-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 6px 0 12px 0;
+}
 
-      65% {
-          -webkit-transform: scale3d(.95, 1.05, 1);
-                  transform: scale3d(.95, 1.05, 1);
-      }
+/* Seats Diagram Table */
+#seatsDiagram.slots {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 6px;
+    width: auto;
+}
 
-      75% {
-          -webkit-transform: scale3d(1.05, .95, 1);
-                  transform: scale3d(1.05, .95, 1);
-      }
+#seatsDiagram td.box {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    max-width: 46px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f1f5f9;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    padding: 0;
+}
 
-      100% {
-          -webkit-transform: scale3d(1, 1, 1);
-                  transform: scale3d(1, 1, 1);
-      }
-      }
+#seatsDiagram td.box:hover:not([data-occupied="true"]) {
+    border-color: #0d6efd;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+}
 
-      @keyframes rubberBand {
-      0% {
-          -webkit-transform: scale3d(1, 1, 1);
-                  transform: scale3d(1, 1, 1);
-      }
+#seatsDiagram td.box.selected {
+    background-color: #28a745 !important;
+    border-color: #1e7e34 !important;
+    color: #ffffff !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+}
 
-      30% {
-          -webkit-transform: scale3d(1.25, 0.75, 1);
-                  transform: scale3d(1.25, 0.75, 1);
-      }
+#seatsDiagram td.box[data-occupied="true"] {
+    background-color: #dc3545 !important;
+    border-color: #bd2130 !important;
+    color: #ffffff !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    opacity: 0.95;
+}
 
-      40% {
-          -webkit-transform: scale3d(0.75, 1.25, 1);
-                  transform: scale3d(0.75, 1.25, 1);
-      }
+#seatsDiagram td.space {
+    border: none;
+    background: transparent;
+    cursor: default;
+    padding: 0;
+}
 
-      50% {
-          -webkit-transform: scale3d(1.15, 0.85, 1);
-                  transform: scale3d(1.15, 0.85, 1);
-      }
+.lane-divider {
+    text-align: center;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 10px 0 !important;
+    letter-spacing: 1.5px;
+}
 
-      65% {
-          -webkit-transform: scale3d(.95, 1.05, 1);
-                  transform: scale3d(.95, 1.05, 1);
-      }
+/* Modal Footer & Confirmation Area */
+.modal-footer {
+    position: sticky;
+    bottom: 0;
+    background: #ffffff;
+    z-index: 10;
+    border-top: 1px solid #e2e8f0;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+}
 
-      75% {
-          -webkit-transform: scale3d(1.05, .95, 1);
-                  transform: scale3d(1.05, .95, 1);
-      }
+#confirmSlotBtn {
+    background: #0d6efd;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    min-width: 170px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
 
-      100% {
-          -webkit-transform: scale3d(1, 1, 1);
-                  transform: scale3d(1, 1, 1);
-      }
-      }
+#confirmSlotBtn:hover:not(:disabled) {
+    background: #0b5ed7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.35);
+}
 
-      .rubberBand {
-      -webkit-animation-name: rubberBand;
-              animation-name: rubberBand;
-      }
+#confirmSlotBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* -------------------------------------------------------------
+   Responsive Breakpoints for Modal
+   320px, 360px, 375px, 390px, 430px, 768px
+   ------------------------------------------------------------- */
+@media (max-width: 576px) {
+    .modal-dialog {
+        width: 98%;
+        margin: 0.5rem auto;
+    }
+
+    .modal-content {
+        max-height: 94vh;
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding: 14px 16px;
+    }
+
+    .modal-title {
+        font-size: 1.05rem;
+    }
+
+    .modal-body {
+        padding: 12px 12px;
+    }
+
+    .modal-legend {
+        padding: 6px 10px;
+        gap: 10px;
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+
+    .legend-box {
+        width: 12px;
+        height: 12px;
+    }
+
+    #seatsDiagram.slots {
+        border-spacing: 3px;
+    }
+
+    #seatsDiagram td.box {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        max-width: 32px;
+        font-size: 11px;
+        border-radius: 4px;
+    }
+
+    .lane-divider {
+        font-size: 10px;
+        padding: 6px 0 !important;
+        letter-spacing: 1px;
+    }
+
+    .modal-footer {
+        padding: 10px 14px;
+    }
+
+    #confirmSlotBtn {
+        width: 100%;
+        height: 46px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    #seatsDiagram.slots {
+        border-spacing: 2px;
+    }
+
+    #seatsDiagram td.box {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        max-width: 28px;
+        font-size: 10px;
+    }
+}

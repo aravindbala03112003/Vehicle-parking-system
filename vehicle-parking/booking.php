@@ -164,6 +164,53 @@ if (!empty($sdata)) {
       padding: 40px 20px;
       color: #666;
     }
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      margin: 5px auto;
+      background: #ffffff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .nav-toggle.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    @media (max-width: 860px) {
+      .nav-toggle { display: block; }
+      .head2 { position: relative; }
+      .head2 ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.98);
+        padding: 20px 0;
+        gap: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        z-index: 1000;
+      }
+      .head2 ul.active {
+        display: flex;
+      }
+    }
     @media print {
       body { background: #fff !important; }
       .head1, .print-btn { display: none !important; }
@@ -178,9 +225,13 @@ if (!empty($sdata)) {
         <a href="index.php"><img class="logo" src="images/logo(1).jpeg" alt="Logo"></a>
         <a href="index.php"><img class="ln" src="images/logo name.png" alt="Park My Spot"></a>
       </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <ul>
         <li><a href="index.php" class="a">Home</a></li>
-        <li><a href="slot.html" class="a">Choose your slots</a></li>
         <li><a href="entry.php" class="a">Vehicle entry</a></li>
         <li><a href="otp.php" class="a">Booking details</a></li>
         <li><a href="feedback.php" class="a">Rate Us</a></li>
@@ -251,5 +302,6 @@ if (!empty($sdata)) {
       </div>
     <?php endif; ?>
   </div>
+  <script src="navbar.js"></script>
 </body>
 </html>

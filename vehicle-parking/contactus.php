@@ -17,9 +17,13 @@
 			<img class="logo" src="project images/logo(1).jpeg" alt="Park My Spot Logo">
 			<img class="ln" src="project images/logo name.png" alt="Park My Spot">
 		</a>
+		<button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
 		<ul id="navMenu">
 			<li><a href="/" class="a">Home</a></li>
-			<li><a href="slot.html" class="a">Choose Slots</a></li>
 			<li><a href="contactus.php" class="a">Contact Us</a></li>
 			<li class="si"><a href="login.php"><i class='bx bx-user'></i> Sign in</a></li>
 		</ul>
@@ -58,5 +62,6 @@
 			</div>
 		</div>
 	</div>
+	<script src="navbar.js"></script>
 </body>
 </html>

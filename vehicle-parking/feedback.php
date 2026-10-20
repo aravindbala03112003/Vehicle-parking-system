@@ -21,9 +21,13 @@ session_start();
 		<div class="head2">  
 			<a href="index.php"><img class="logo" src="logo(1).jpeg" alt="Logo"></a>
 			<a href="index.php"><img class="ln" src="logo name.png" alt="Park My Spot"></a>
+			<button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
 			<ul>
 				<li><a href="index.php" class="a">Home<span></span></a></li>
-				<li><a href="slot.html" class="a">Choose your slots<span></span></a></li>
 				<li><a href="entry.php" class="a">Vehicle entry<span></span></a></li>
 				<li><a href="otp.php" class="a">Booking details<span></span></a></li>
 				<li><a href="feedback.php" class="a">Rate us<span></span></a></li>
@@ -57,5 +61,6 @@ session_start();
 	</div>
 
 	<script src="feedback.js"></script>
+	<script src="navbar.js"></script>
 </body>
 </html>
