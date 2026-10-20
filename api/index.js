@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
@@ -86,14 +87,26 @@ app.get(['/', '/home.html', '/vehicle-parking/home.html'], (req, res) => {
   if (user && req.path === '/') {
     return res.redirect('/index.php');
   }
-  res.sendFile(path.join(__dirname, '..', 'vehicle-parking', 'home.html'));
+  const filePath = path.join(__dirname, '..', 'vehicle-parking', 'home.html');
+  res.type('html').send(fs.readFileSync(filePath, 'utf8'));
 });
 
 // -------------------------------------------------------------
 // Route: Slot Management Visualization (slot.html)
 // -------------------------------------------------------------
 app.get(['/slot.html', '/vehicle-parking/slot.html'], (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'vehicle-parking', 'slot.html'));
+  const user = getAuthUser(req);
+  const filePath = path.join(__dirname, '..', 'vehicle-parking', 'slot.html');
+  let content = fs.readFileSync(filePath, 'utf8');
+  if (!user) {
+    const publicNav = `
+            <li><a href="/" class="a">Home</a></li>
+            <li><a href="slot.html" class="a">Choose Slots</a></li>
+            <li><a href="contactus.php" class="a">Contact Us</a></li>
+            <li class="si"><a href="login.php">Sign in</a></li>`;
+    content = content.replace(/<ul id="navMenu">[\s\S]*?<\/ul>/, `<ul id="navMenu">${publicNav}\n        </ul>`);
+  }
+  res.type('html').send(content);
 });
 
 // -------------------------------------------------------------
@@ -372,7 +385,8 @@ app.post(['/registration.php', '/vehicle-parking/registration.php'], async (req,
 // Route: Authenticated Home (/index.php)
 // -------------------------------------------------------------
 app.get(['/index.php', '/vehicle-parking/index.php'], requireAuth, (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'vehicle-parking', 'index.php'));
+  const filePath = path.join(__dirname, '..', 'vehicle-parking', 'index.php');
+  res.type('html').send(fs.readFileSync(filePath, 'utf8'));
 });
 
 // -------------------------------------------------------------
@@ -955,7 +969,21 @@ app.post(['/feedbackconnection.php', '/vehicle-parking/feedbackconnection.php'],
 // Route: Contact Us (/contactus.php & /contactusconnection.php)
 // -------------------------------------------------------------
 app.get(['/contactus.php', '/vehicle-parking/contactus.php'], (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'vehicle-parking', 'contactus.php'));
+  const filePath = path.join(__dirname, '..', 'vehicle-parking', 'contactus.php');
+  let content = fs.readFileSync(filePath, 'utf8');
+  const user = getAuthUser(req);
+  if (user) {
+    const authNav = `
+			<li><a href="index.php" class="a">Dashboard</a></li>
+			<li><a href="slot.html" class="a">Choose Slots</a></li>
+			<li><a href="entry.php" class="a">Vehicle Entry</a></li>
+			<li><a href="otp.php" class="a">Booking Details</a></li>
+			<li><a href="contactus.php" class="a">Contact Us</a></li>
+			<li><a href="feedback.php" class="a">Rate Us</a></li>
+			<li class="si"><a href="logout.php"><i class='bx bx-log-out'></i> Logout</a></li>`;
+    content = content.replace(/<ul id="navMenu">[\s\S]*?<\/ul>/, `<ul id="navMenu">${authNav}\n\t\t</ul>`);
+  }
+  res.type('html').send(content);
 });
 
 app.post(['/contactusconnection.php', '/vehicle-parking/contactusconnection.php'], async (req, res) => {

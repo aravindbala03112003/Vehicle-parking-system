@@ -127,20 +127,33 @@ body {
         font-size: 13px;
         padding: 6px 12px;
     }
+    .inner-container {
+        flex-direction: column !important;
+        padding: 20px !important;
+        margin: 30px auto !important;
+        width: calc(100% - 24px) !important;
+    }
+    .tile1 {
+        width: 100% !important;
+    }
+    .tile2 {
+        padding: 24px 0 0 0 !important;
+    }
+    .tile2-image img {
+        width: 100% !important;
+        max-width: 220px !important;
+    }
 }
-  .h1{
-    position: absolute;
-    top: 150px;
-    left:200px;
-  }  
 
 .inner-container {
-	width: 750px;
-	margin: 170px auto;
+	max-width: 750px;
+	width: calc(100% - 32px);
+	margin: 60px auto;
 	display: flex;
 	background-color: white;
 	border-radius: 12px;
-	padding: 30px
+	padding: 30px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .tile1 {
@@ -148,7 +161,6 @@ body {
 }
 
 .tile2 {
-
 	flex: 1 1 auto;
 	padding: 0px 40px;
 }

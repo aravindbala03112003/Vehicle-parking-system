@@ -119,14 +119,15 @@ async function runLiveVerification() {
       `Status: ${loginRes.status}, Cookie: ${cookieHeader ? 'present' : 'missing'}`
     );
 
-    // 6. Protected Route Access with Session
+    // 6. Protected Route Access with Session (Must return text/html and not trigger download)
     const dashRes = await request('GET', '/index.php', null, {
       'Cookie': cookieHeader
     });
+    const dashCt = dashRes.headers['content-type'] || '';
     report(
-      '6. Protected Dashboard Accessible with Session (/index.php)',
-      dashRes.status === 200 && dashRes.data.includes('Park My Spot'),
-      `Status: ${dashRes.status}`
+      '6. Protected Dashboard Accessible with Session (/index.php returns text/html, not download)',
+      dashRes.status === 200 && dashCt.includes('text/html') && !dashCt.includes('application/x-httpd-php') && dashRes.data.includes('Park My Spot'),
+      `Status: ${dashRes.status}, Content-Type: ${dashCt}`
     );
 
     // 7. Real Vehicle Slot Booking against Remote MySQL
@@ -196,6 +197,15 @@ async function runLiveVerification() {
       '11. Contact Us Message Persistence in Remote MySQL',
       contactRes.status === 200 && contactRes.data.includes('Message sent successfully'),
       `Status: ${contactRes.status}`
+    );
+
+    // 11b. Contact Us Page Render (Must return text/html and not download file)
+    const contactPage = await request('GET', '/contactus.php');
+    const contactPageCt = contactPage.headers['content-type'] || '';
+    report(
+      '11b. Contact Us Page Loads HTML in Browser (/contactus.php returns text/html, not download)',
+      contactPage.status === 200 && contactPageCt.includes('text/html') && !contactPageCt.includes('application/x-httpd-php') && contactPage.data.includes('Get in touch'),
+      `Status: ${contactPage.status}, Content-Type: ${contactPageCt}`
     );
 
     // 12. Slot Visualizer Page

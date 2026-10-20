@@ -3,6 +3,7 @@ const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
+const cookieSignature = require('cookie-signature');
 
 // Test tracking report
 const results = [];
@@ -236,13 +237,30 @@ async function testServerRoutes() {
       entryRes.status === 302 && entryRes.headers.location === '/login.php'
     );
 
-    // 7. Contact Us Page
+    // 7. Contact Us Page (Must have text/html Content-Type, NOT application/x-httpd-php)
     const contactRes = await request('/contactus.php');
+    const contactCt = contactRes.headers['content-type'] || '';
+    const contactValid = contactRes.status === 200 && contactCt.includes('text/html') && !contactCt.includes('application/x-httpd-php') && contactRes.body.includes('Get in touch');
     recordTest(
-      'HTTP GET /contactus.php (Contact Form)',
-      '200 OK',
-      `${contactRes.status} OK`,
-      contactRes.status === 200 && contactRes.body.includes('Get in touch')
+      'HTTP GET /contactus.php (Contact Form renders HTML without downloading)',
+      '200 OK text/html',
+      `${contactRes.status} ${contactCt}`,
+      contactValid
+    );
+
+    // 8. Authenticated Dashboard Page (Must have text/html Content-Type, NOT application/x-httpd-php)
+    const rawVal = JSON.stringify({ id: 1, name: 'Tester', email: 'test@example.com' });
+    const signedCookie = 's:' + cookieSignature.sign(rawVal, 'park_my_spot_secret_key_2026');
+    const authIndexRes = await request('/index.php', {
+      headers: { 'Cookie': `pms_session=${encodeURIComponent(signedCookie)}` }
+    });
+    const authCt = authIndexRes.headers['content-type'] || '';
+    const authValid = authIndexRes.status === 200 && authCt.includes('text/html') && !authCt.includes('application/x-httpd-php') && authIndexRes.body.includes('Park My Spot');
+    recordTest(
+      'HTTP GET /index.php (Authenticated Dashboard renders HTML without downloading)',
+      '200 OK text/html',
+      `${authIndexRes.status} ${authCt}`,
+      authValid
     );
 
     // 8. Feedback Page

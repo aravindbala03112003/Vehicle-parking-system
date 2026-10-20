@@ -12,15 +12,18 @@
 	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
-	<div class="head2">  
-		<a href="home.html"><img class="logo" src="project images/logo(1).jpeg" alt="Logo"></a>
-		<a href="home.html"><img class="ln" src="project images/logo name.png" alt="Park My Spot"></a>
-		<ul>
-			<li> <a href="home.html" class="a">Home<span></span></a></li>
-			<li> <a href="contactus.php" class="a">Contact Us<span></span></a></li>
-			<li class="si"><a href="login.php">Sign in</a></li>
+	<nav class="head2" id="mainNavbar">  
+		<a href="/" class="brand-wrapper">
+			<img class="logo" src="project images/logo(1).jpeg" alt="Park My Spot Logo">
+			<img class="ln" src="project images/logo name.png" alt="Park My Spot">
+		</a>
+		<ul id="navMenu">
+			<li><a href="/" class="a">Home</a></li>
+			<li><a href="slot.html" class="a">Choose Slots</a></li>
+			<li><a href="contactus.php" class="a">Contact Us</a></li>
+			<li class="si"><a href="login.php"><i class='bx bx-user'></i> Sign in</a></li>
 		</ul>
-	</div>
+	</nav>
 
 	<div class="inner-container">
 		<div class="tile1">
@@ -37,7 +40,7 @@
 					<textarea class="form-field" name="message" placeholder="Go ahead we are listening..." required></textarea>
 				</div>
 				<div class="form-row">
-					<button type="submit" name="submit" class="form-field btn" value="Submit">Submit</button>
+					<button type="submit" name="submit" class="form-field btn" value="Submit">Submit Message</button>
 				</div>
 			</form>
 		</div>
@@ -47,7 +50,7 @@
 			</div>
 			<div>
 				<div class="form-row">
-					<img src="phone.png" class="contact-image" alt="Phone"><span>+91987545678</span>
+					<img src="phone.png" class="contact-image" alt="Phone"><span>+91 98754 56780</span>
 				</div>
 				<div class="form-row">
 					<img src="mail.png" class="contact-image" alt="Email"><span>parkmyspot@gmail.com</span>
