@@ -17,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit-vehicle'])) {
     $vehreno       = isset($_POST['vehreno']) ? trim($_POST['vehreno']) : '';
     $ownername     = isset($_POST['ownername']) ? trim($_POST['ownername']) : '';
     $ownercontno   = isset($_POST['ownercontno']) ? trim($_POST['ownercontno']) : '';
-    $enteringtime  = isset($_POST['enteringtime']) ? trim($_POST['enteringtime']) : '';
-    $outtime       = isset($_POST['outtime']) ? trim($_POST['outtime']) : '';
+    $enteringtime  = !empty($_POST['enteringtime']) ? trim($_POST['enteringtime']) : date('Y-m-d H:i:s');
+    $outtime       = !empty($_POST['outtime']) ? trim($_POST['outtime']) : null;
     $price         = isset($_POST['price']) ? trim($_POST['price']) : '0';
     $slot          = isset($_POST['slot']) ? trim($_POST['slot']) : '';
 

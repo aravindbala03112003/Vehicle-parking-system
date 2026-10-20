@@ -608,8 +608,8 @@ app.post(['/entry.php', '/vehicle-parking/entry.php'], requireAuth, async (req, 
   const vehreno = (req.body.vehreno || '').trim();
   const ownername = (req.body.ownername || '').trim();
   const ownercontno = (req.body.ownercontno || '').trim();
-  const enteringtime = (req.body.enteringtime || '').trim();
-  const outtime = (req.body.outtime || '').trim();
+  const enteringtime = (req.body.enteringtime || '').trim() || new Date().toISOString().slice(0, 19).replace('T', ' ');
+  const outtime = (req.body.outtime || '').trim() || null;
   const price = (req.body.price || '0').trim();
   const slot = (req.body.slot || '').trim();
 
