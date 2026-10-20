@@ -1,0 +1,318 @@
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body{
+  background-image: url('parking1.jpg');
+  background-attachment: fixed;
+  background-size:cover ;
+  height: 100vh;
+
+ 
+  
+}
+
+.logo{
+
+  width: 80px;
+  border-radius: 50%;
+  position:absolute;
+   top: 10px;
+   left: 20px;
+   cursor: pointer;
+}
+.head2 .ln{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 20px;
+  left: 110px;
+  width: 130px;
+  cursor: pointer;
+
+}
+
+
+
+.head2{
+  
+  justify-content: space-between;
+}
+.head2 ul{
+  
+  display: flex;
+ 
+  position:absolute;
+  top: 10px;
+  right: 40px;
+  
+
+}
+.head2 li{
+ text-decoration: none;
+ list-style: none;
+ padding: 10px;
+}
+.a{
+position: relative;
+font-weight: 500;
+color: #fffcfc;
+text-decoration: none;
+transition: .5s;
+font-size: 20px;
+
+}
+.head2 .a:hover{
+  
+  color: white;
+}
+
+.head2 .a span {
+  position: absolute;
+top: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+
+z-index: 1;
+
+border-bottom: 2px solid rgb(246, 71, 23);
+
+border-radius: 15px;
+
+transform: scale(0) translate Y(50px);
+
+opacity: 0;
+
+transition: .5s;
+
+}
+.head2 a:hover span{
+
+  transform: scale(1) translate Y(0);
+
+  opacity: 1;
+  
+  }.si {
+    
+    background-color: #f33e16;
+    border-radius:10px ;
+    cursor: pointer;
+   
+  }
+  .si a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+  
+  
+  
+  }
+
+.si:hover {
+  color: white;
+  background-color: #ed5e2b;
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-----------------------------------------*/
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+ 
+}
+
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+
+.form .input-box {
+  width: 100%;
+  margin-top: 10px;
+
+
+
+}
+.input-box label {
+  color: #333;
+ 
+}
+
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #1a1919;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+  padding:0 45px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 10px;
+}
+.gender-box h3 {
+  color: #1a1919;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #131313;
+}
+.address :where(input, .select-box) {
+  margin-top: 10px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background:#f65936;
+  border-radius:30px ;
+}
+.form button:hover {
+  background: #e6360f;
+}
+.btn {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background:#f65936;
+  border-radius:30px ;
+}
+.btn:hover {
+  background: #e6360f;
+}
+
+
+@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+.input-box.error input {
+  border-color: #ff3860;
+}
+
+.input-box.error {
+ 
+  color: #ff3860;
+  font-size: 9px;
+  height: 13px;
+}
+
+.input-box.success input {
+  border-color: #09c372;
+}
+.input-box input:focus {
+  outline: 0;
+}
+
+
+.lp {
+  padding: 20px;
+
+}
+.lp a{
+  color: blue;
+  text-decoration: none;
+}
+
+ .alert-danger{
+  border-radius:10px ;
+  padding: 10px;
+  margin-top: 20px;
+  background-color:#f6593666;
+  color:#e6360f;
+}

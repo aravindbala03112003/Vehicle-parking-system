@@ -1,0 +1,163 @@
+.booking-slot {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  margin: 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.red {
+  background-color: red;
+}
+
+ 
+  .error{
+      font-size: 15px;
+      color: red;
+  }
+
+
+  /* styles for Booking.php Forms nd all */
+  #seatsDiagram td,
+  #displaySeats td{
+      padding: 1rem;
+      text-align: center;
+      margin: 0.3rem;
+      width: 60px;
+      border: 3px solid transparent;
+      display: inline-block;
+      background-color: #efefef;
+      border-radius: 5px;
+  }
+
+  #displaySeats{
+      margin: 3rem auto 1rem auto;
+  }
+
+
+  #seatsDiagram{
+      width: 100%;
+      margin-bottom: 1rem;
+  }
+
+  .booking-slot   td.selected{
+      background-color: #db2619;
+     
+        animation-name: rubberBand;
+      animation-duration: 300ms;
+      animation-fill-mode: both;
+  }
+
+  #seatsDiagram td.notAvailable,
+  #displaySeats td.notAvailable
+  {
+      color: white;
+      background-color: #db2619;
+  }
+
+  #seatsDiagram td:not(.space,.notAvailable):hover{
+      cursor: pointer;
+      border-color:rgb(197, 56, 17);
+  }
+
+  #seatsDiagram .space,
+  #displaySeats .space{
+      background-color: white;
+      border: none;
+  }
+
+  #routeSugg{
+      display: flex;
+      justify-content: space-between;
+  }
+  
+  #seatsDiagram .space,
+  #displaySeats .space{
+      background-color: white;
+      border: none;
+  }
+
+  #routeSugg{
+      display: flex;
+      justify-content: space-between;
+  }
+  
+  @-webkit-keyframes rubberBand {
+      0% {
+          -webkit-transform: scale3d(1, 1, 1);
+                  transform: scale3d(1, 1, 1);
+      }
+
+      30% {
+          -webkit-transform: scale3d(1.25, 0.75, 1);
+                  transform: scale3d(1.25, 0.75, 1);
+      }
+
+      40% {
+          -webkit-transform: scale3d(0.75, 1.25, 1);
+                  transform: scale3d(0.75, 1.25, 1);
+      }
+
+      50% {
+          -webkit-transform: scale3d(1.15, 0.85, 1);
+                  transform: scale3d(1.15, 0.85, 1);
+      }
+
+      65% {
+          -webkit-transform: scale3d(.95, 1.05, 1);
+                  transform: scale3d(.95, 1.05, 1);
+      }
+
+      75% {
+          -webkit-transform: scale3d(1.05, .95, 1);
+                  transform: scale3d(1.05, .95, 1);
+      }
+
+      100% {
+          -webkit-transform: scale3d(1, 1, 1);
+                  transform: scale3d(1, 1, 1);
+      }
+      }
+
+      @keyframes rubberBand {
+      0% {
+          -webkit-transform: scale3d(1, 1, 1);
+                  transform: scale3d(1, 1, 1);
+      }
+
+      30% {
+          -webkit-transform: scale3d(1.25, 0.75, 1);
+                  transform: scale3d(1.25, 0.75, 1);
+      }
+
+      40% {
+          -webkit-transform: scale3d(0.75, 1.25, 1);
+                  transform: scale3d(0.75, 1.25, 1);
+      }
+
+      50% {
+          -webkit-transform: scale3d(1.15, 0.85, 1);
+                  transform: scale3d(1.15, 0.85, 1);
+      }
+
+      65% {
+          -webkit-transform: scale3d(.95, 1.05, 1);
+                  transform: scale3d(.95, 1.05, 1);
+      }
+
+      75% {
+          -webkit-transform: scale3d(1.05, .95, 1);
+                  transform: scale3d(1.05, .95, 1);
+      }
+
+      100% {
+          -webkit-transform: scale3d(1, 1, 1);
+                  transform: scale3d(1, 1, 1);
+      }
+      }
+
+      .rubberBand {
+      -webkit-animation-name: rubberBand;
+              animation-name: rubberBand;
+      }
