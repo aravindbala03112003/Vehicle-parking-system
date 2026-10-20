@@ -7,7 +7,9 @@
     "start": "node api/index.js",
     "dev": "node api/index.js",
     "migrate": "node scripts/migrate.js",
-    "test": "node tests/run-tests.js && node tests/e2e-db-tests.js"
+    "test": "node tests/run-tests.js",
+    "test:db": "node tests/e2e-db-tests.js",
+    "test:live": "node scripts/verify-live.js"
   },
   "keywords": [
     "parking",

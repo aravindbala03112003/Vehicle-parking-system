@@ -41,7 +41,7 @@ The project features a **dual-compatible architecture**: it can be run locally u
 
 - **GitHub Repository**: [https://github.com/aravindbala03112003/Vehicle-parking-system](https://github.com/aravindbala03112003/Vehicle-parking-system)
 - **Deployment Platform**: Vercel Serverless
-- **Live Production URL**: [https://vehicle-parking-system-aravindbala03112003s-projects.vercel.app](https://vehicle-parking-system-aravindbala03112003s-projects.vercel.app) *(or your deployed Vercel domain)*
+- **Live Production URL**: [https://park-my-spot.vercel.app](https://park-my-spot.vercel.app)
 
 ---
 
